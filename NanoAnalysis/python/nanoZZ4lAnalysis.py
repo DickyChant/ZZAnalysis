@@ -190,6 +190,7 @@ if IsMC:
                                                'GenDressedLepton_*',
                                                'FidDressedLeps_*',
                                                'FidZ*',
+                                               'LHE*Part*',
                                                'LHE*Weight',
                                                'passedFiducial',
                                                'Generator_weight',
