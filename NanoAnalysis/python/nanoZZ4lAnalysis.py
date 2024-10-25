@@ -190,7 +190,7 @@ if IsMC:
                                                'GenDressedLepton_*',
                                                'FidDressedLeps_*',
                                                'FidZ*',
-                                               'LHE*Part*',
+                                               'LHEPart_*',
                                                'LHE*Weight',
                                                'passedFiducial',
                                                'Generator_weight',
@@ -259,7 +259,7 @@ if IsMC:
                           'keep HTXS_Higgs*',
                           'keep HTXS_njets30',
                           'keep Pileup*',
-                          #'keep LHE*',
+                          'keep LHEPart*',
                           #'keep Generator*',
                           #'keep PV*',
                         ])

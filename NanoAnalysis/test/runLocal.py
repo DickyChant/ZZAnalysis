@@ -15,7 +15,8 @@ if not validateCheckout() :
 #SampleToRun = "MCsync_Rereco"
 #SampleToRun = "MCsync_UL"
 #SampleToRun = "Data2022"
-SampleToRun = "MC2022"
+# SampleToRun = "MC2022"
+SampleToRun = "MCUL_Renano"
 
 ### Customize processing variables
 #setConf("runMELA", False)
@@ -62,6 +63,19 @@ elif SampleToRun == "ggh125_UL" : ### 2018 UL test sample
     setConf("store","root://cms-xrd-global.cern.ch/")
     setConf("fileNames",[
         "/store/mc/RunIISummer20UL18NanoAODv2/WplusH_HToZZTo4L_M125_TuneCP5_13TeV_powheg2-minlo-HWJ_JHUGenV7011_pythia8/NANOAODSIM/106X_upgrade2018_realistic_v15_L1v1-v1/270000/3B6A5CB5-2B7C-924D-85B4-FC3B0C1F4909.root",
+        ])
+
+elif SampleToRun == "MCUL_Renano" : ### 2018 UL test sample
+    setConf("SAMPLENAME", "ggH125")
+    setConf("XSEC", 48.58*0.0002745)
+    setConf("LEPTON_SETUP", 2018)
+    setConf("IsMC", True)
+    setConf("ADD_ALLEVENTS", True)
+    setConf("DATA_TAG", "UL")
+    setConf("NANOVERSION", 10)
+    setConf("store","")
+    setConf("fileNames",[
+        "/eos/home-s/sqian/hzz_renano_test/hzz_renano_test_ul18_RunIISummer20UL18MiniAODv2-106X_v16-v1/240929_215832/0000/nano_1.root",
         ])
 
 ################################################################################
