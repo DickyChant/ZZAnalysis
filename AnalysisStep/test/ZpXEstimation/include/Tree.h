@@ -998,6 +998,10 @@ void Tree::Init(TTree *tree, TString input_file_name, bool notZLregion)
    ExtraLepPhi = 0;
    ExtraLepLepId = 0;
    reweightingweights = 0;
+
+
+   nCleanedJetsPt30 = 0; // Added to have correct initial value...
+
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;

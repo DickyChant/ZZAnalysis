@@ -37,8 +37,8 @@ int main( int argc, char *argv[] )
 
    SSmethod *ss = new SSmethod();
    //ss->SetLumi(35.92); // 2016 lumi
-   ss->SetLumi(41.53); // 2017 lumi
-   //ss->SetLumi(59.74); // 2018 lumi
+   // ss->SetLumi(41.53); // 2017 lumi
+   ss->SetLumi(59.74); // 2018 lumi
 
    ///////////////////////////////////
    // Fill control histos           //
@@ -48,21 +48,21 @@ int main( int argc, char *argv[] )
    ss->FillDataMCPlots(ZZ);
    ss->FillDataMCPlots(ttbar);
    ss->FillDataMCPlots(DY);
-   ss->SaveDataMCHistos("DataMC_SS_Moriond19.root");
+   ss->SaveDataMCHistos("DataMC_SS_2018UL.root");
    
    ///////////////////////////////////
    // Fill passing/failling histos  //
    ///////////////////////////////////
    ss->FillFRHistos(Data);
    ss->FillFRHistos(WZ);
-   ss->SaveFRHistos("Histos_SS_Moriond19.root", SubtractWZ, Remove_NegBins_FR);
+   ss->SaveFRHistos("Histos_SS_2018UL.root", SubtractWZ, Remove_NegBins_FR);
 
    ///////////////////////////////////
    // Calculate fake rates          //
    ///////////////////////////////////
-   ss->GetFRHistos("Histos_SS_Moriond19.root");
+   ss->GetFRHistos("Histos_SS_2018UL.root");
    ss->Set_pT_binning(8, pT_bins);
-   ss->ProduceFakeRates("FakeRates_SS_Moriond19.root", Data);
+   ss->ProduceFakeRates("FakeRates_SS_2018UL.root", Data);
 
    ///////////////////////////////////
    // Calculate OS/SS ratios        //
@@ -72,19 +72,19 @@ int main( int argc, char *argv[] )
    ///////////////////////////////////
    // Fill ZX contributions histos  //
    ///////////////////////////////////
-   ss->MakeHistogramsZX(Data, "FakeRates_SS_Moriond19.root");
-   ss->SaveZXHistos("ZXHistos_SS_Moriond19.root");
+   ss->MakeHistogramsZX(Data, "FakeRates_SS_2018UL.root");
+   ss->SaveZXHistos("ZXHistos_SS_2018UL.root");
 
    ///////////////////////////////////
    // Plot control plots            //
    ///////////////////////////////////
-   ss->GetDataMCHistos("DataMC_SS_Moriond19.root");
+   ss->GetDataMCHistos("DataMC_SS_2018UL.root");
    ss->PlotDataMC( "M4l", "Plots" );
 
    ///////////////////////////////////
    // Plot and fit Z+X              //
    ///////////////////////////////////
-   ss->GetZXHistos("ZXHistos_SS_Moriond19.root");
+   ss->GetZXHistos("ZXHistos_SS_2018UL.root");
    ss->PlotZX("M4l", "Plots");
    ss->FitZX("M4l", "Plots");
 	

@@ -39,8 +39,8 @@ int main( int argc, char *argv[] )
    
    OSmethod *os = new OSmethod();
    //os->SetLumi(35.92); //2016
-   os->SetLumi(41.53);   //2017
-   //os->SetLumi(59.74); //2018
+   // os->SetLumi(41.53);   //2017
+   os->SetLumi(59.74); //2018
 
    ///////////////////////////////////
    // Fill control histos           //
@@ -50,35 +50,35 @@ int main( int argc, char *argv[] )
    os->FillDataMCPlots(ZZ);
    os->FillDataMCPlots(ttbar);
    os->FillDataMCPlots(DY);
-   os->SaveDataMCHistos("DataMC_OS_Moriond19.root");
+   os->SaveDataMCHistos("DataMC_OS_2018UL.root");
 
    ///////////////////////////////////
    // Fill passing/failling histos  //
    ///////////////////////////////////
    os->FillFRHistos(Data);
    os->FillFRHistos(WZ);
-   os->SaveFRHistos("Histos_OS_Moriond19.root", SubtractWZ, Remove_NegBins_FR);
+   os->SaveFRHistos("Histos_OS_2018UL.root", SubtractWZ, Remove_NegBins_FR);
 
    ///////////////////////////////////
    // Calculate fake rates          //
    ///////////////////////////////////
-   os->GetFRHistos("Histos_OS_Moriond19.root");
+   os->GetFRHistos("Histos_OS_2018UL.root");
    os->Set_pT_binning(8, pT_bins);
-   os->ProduceFakeRates("FakeRates_OS_Moriond19.root");
+   os->ProduceFakeRates("FakeRates_OS_2018UL.root");
 
    ///////////////////////////////////
    // Fill ZX contributions histos  //
    ///////////////////////////////////
-   os->MakeHistogramsZX(Data, "FakeRates_OS_Moriond19.root");
-   os->MakeZXMCContribution(ZZ, "FakeRates_OS_Moriond19.root");
-   os->SaveZXHistos("ZXHistos_OS_Moriond19.root", Remove_NegBins_ZX);
+   os->MakeHistogramsZX(Data, "FakeRates_OS_2018UL.root");
+   os->MakeZXMCContribution(ZZ, "FakeRates_OS_2018UL.root");
+   os->SaveZXHistos("ZXHistos_OS_2018UL.root", Remove_NegBins_ZX);
 
    ///////////////////////////////////
    // Plot control plots            //
    ///////////////////////////////////
-   os->GetZXHistos("ZXHistos_OS_Moriond19.root");
+   os->GetZXHistos("ZXHistos_OS_2018UL.root");
    os->PrintZXYields();
-   os->GetDataMCHistos("DataMC_OS_Moriond19.root");
+   os->GetDataMCHistos("DataMC_OS_2018UL.root");
    os->PlotDataMC("M4l", "Plots");
    os->PlotDataMC_2P2F( "M4l", "Plots" );
    os->PlotDataMC_3P1F( "M4l", "Plots" );
@@ -86,7 +86,7 @@ int main( int argc, char *argv[] )
    ///////////////////////////////////
    // Plot Z+X plots                //
    ///////////////////////////////////
-   os->GetZXHistos("ZXHistos_OS_Moriond19.root");
+   os->GetZXHistos("ZXHistos_OS_2018UL.root");
    os->PlotZXContributions("Plots");
    os->FitZX("Plots");
 	
