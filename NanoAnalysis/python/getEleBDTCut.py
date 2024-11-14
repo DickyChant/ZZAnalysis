@@ -51,6 +51,8 @@ def getEleBDTCut(era, dataTag, nanoVersion, useUncorrPt=False) :
         if "UL" in dataTag :
             if nanoVersion <10 :
                 return eleBDTCut_RunIIUL_v9
+            else:
+                return eleBDTCut_RunIII_ULTraining_def
         else :
             if nanoVersion <10 :
                 return eleBDTCut_RunIIpreUL_v9

@@ -46,7 +46,7 @@ if __name__ == '__main__' :
             data = line.split(",")
             if header:            
                 if len(data) != len(header):
-                    raise ValueError, "Inconsistent number of columns in data '" + line + "', expected header = " + str(header)
+                    raise(ValueError, "Inconsistent number of columns in data '" + line + "', expected header = " + str(header))
 
                 dataset = data[datasetIdx]
                 instance = 'prod/global'
@@ -56,6 +56,7 @@ if __name__ == '__main__' :
                 runner = cmsFileManip()
                 cmdout, _, _ = runner.runCommand(run_command)
                 result = []
+                print(cmdout)
                 for line in cmdout.split('\n'):
                     if line != "" : result.append(line)
                 if len(result) != 1 :
