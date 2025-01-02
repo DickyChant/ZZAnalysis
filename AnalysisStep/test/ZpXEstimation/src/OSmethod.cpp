@@ -91,7 +91,7 @@ void OSmethod::FillFRHistos( TString input_file_data_name )
    
    hCounters = (TH1F*)input_file_data->Get("CRZLTree/Counters");
    gen_sum_weights = (Long64_t)hCounters->GetBinContent(40);
-   
+
    input_tree_data = (TTree*)input_file_data->Get("CRZLTree/candTree");
    Init( input_tree_data, input_file_data_name , false);
    
@@ -144,6 +144,33 @@ void OSmethod::FillFRHistos( TString input_file_data_name )
          _k_factor = calculate_K_factor(input_file_data_name);
          _event_weight = (_lumi * 1000 * xsec * _k_factor * overallEventWeight * L1prefiringWeight) / gen_sum_weights;
 
+         cout << "Event weight: " << _event_weight << 
+         "\t" << _k_factor << 
+         "\t" << overallEventWeight << 
+         "\t" << L1prefiringWeight <<  
+         "\t" << xsec << 
+         "\t" << gen_sum_weights; 
+
+         switch ( _current_process )
+         {
+            case Settings::Data:
+               cout << "\tData" << endl;
+               break;
+            case Settings::WZ:
+               cout << "\tWZ" << endl;
+               break;
+            case Settings::qqZZ:
+               cout << "\tqqZZ" << endl;
+               break;
+            case Settings::DY:
+               cout << "\tDY" << endl;
+               break;
+            case Settings::ttbar:
+               cout << "\tttbar" << endl;
+               break;
+         }
+
+
          //if( LepisID->at(2) ) // Changed because we are not using BDT-based muon ID but PF+ISO            
          if(LepisID->at(2) && ((fabs(LepLepId->at(2)) == 11) ? LepCombRelIsoPF->at(2) < 999999. : LepCombRelIsoPF->at(2) < 0.35))
          {
@@ -161,9 +188,29 @@ void OSmethod::FillFRHistos( TString input_file_data_name )
    } // END events loop
 	
 	// OS method: control printout for ele/mu in Z+L CR 
-	if( _current_process == Settings::Data)
+   
+	// if( _current_process == Settings::Data)
 	{
-		cout << endl;
+		switch ( _current_process )
+		{
+			case Settings::Data:
+				cout << "[INFO] Data" << endl;
+				break;
+			case Settings::WZ:
+				cout << "[INFO] WZ" << endl;
+				break;
+			case Settings::qqZZ:
+				cout << "[INFO] qqZZ" << endl;
+				break;
+			case Settings::DY:
+				cout << "[INFO] DY" << endl;
+				break;
+			case Settings::ttbar:
+				cout << "[INFO] ttbar" << endl;
+				break;
+		}
+
+      cout << endl;
 		cout << "========================================================================================" << endl;
 		cout << "[INFO] Control printout for Z+L control region." << endl;
 		cout << "========================================================================================" << endl;
@@ -194,6 +241,10 @@ void OSmethod::FillDataMCPlots( TString input_file_data_name )
    
    hCounters = (TH1F*)input_file_data->Get("CRZLLTree/Counters");
    gen_sum_weights = (Long64_t)hCounters->GetBinContent(40);
+
+   hCounters->Print();
+
+   cout << "gen_sum_weights: " << gen_sum_weights << endl;
    
    input_tree_data = (TTree*)input_file_data->Get("CRZLLTree/candTree");
    Init( input_tree_data, input_file_data_name , true);
@@ -398,11 +449,11 @@ void OSmethod::MakeHistogramsZX( TString input_file_data_name, TString  input_fi
       
    }
    
-   //std::cout << "####################################################\n";
-   //std::cout << "# events CRLLos      = " << nevents_CRLLos      << '\n';
-   //std::cout << "# events CRLLos_3P1F = " << nevents_CRLLos_3P1F << '\n';
-   //std::cout << "# events CRLLos_2P2F = " << nevents_CRLLos_2P2F << '\n';
-   //std::cout << "####################################################\n";
+   // std::cout << "####################################################\n";
+   // std::cout << "# events CRLLos      = " << nevents_CRLLos      << '\n';
+   // std::cout << "# events CRLLos_3P1F = " << nevents_CRLLos_3P1F << '\n';
+   // std::cout << "# events CRLLos_2P2F = " << nevents_CRLLos_2P2F << '\n';
+   // std::cout << "####################################################\n";
 
    cout << "[INFO] Processing of " << input_file_data_name << " done." << endl;
 }

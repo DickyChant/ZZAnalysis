@@ -127,8 +127,13 @@ if not IsMC :
         jsonFile = localPath+"test/prod/Cert_Collisions2022_355100_362760_Golden.json"
     elif LEPTON_SETUP == 2023 :
         jsonFile = localPath+"test/prod/Cert_Collisions2023_366442_370355_Golden.json"
-    else:
-        exit(1) #2016-17 to be implemented
+    elif LEPTON_SETUP == 2017 :
+        jsonFile = localPath+"test/prod/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"
+    elif LEPTON_SETUP == 2016 :
+        jsonFile = localPath+"test/prod/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt"
+    else :
+        print("Invalid LEPTON_SETUP", LEPTON_SETUP)
+        exit(1) 
 
 ### Modules to be run
 

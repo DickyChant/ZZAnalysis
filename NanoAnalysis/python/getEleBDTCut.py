@@ -30,6 +30,37 @@ def getEleBDTCut(era, dataTag, nanoVersion, useUncorrPt=False) :
                                      (fSCeta>=0.8 and fSCeta<1.479 and BDT > 0.0273863727) or \
                                      (fSCeta>=1.479                and BDT > -0.5532483665)))
 
+    # Run2 UL HZZ WPs for 2016, 2017, 2018
+
+    def eleBDTCut_RunIIUL_HZZ_2016(ele) :
+        fSCeta = abs(ele.eta + ele.deltaEtaSC)
+        BDT = ele.mvaHZZIso
+        return (ele.pt<=10. and     ((fSCeta<0.8                   and BDT > 1.8949071018) or \
+                                     (fSCeta>=0.8 and fSCeta<1.479 and BDT > 1.80714210202) or \
+                                     (fSCeta>=1.479                and BDT > 1.64751528517))) \
+                or (ele.pt>10. and  ((fSCeta<0.8                   and BDT > 0.339697782473) or \
+                                     (fSCeta>=0.8 and fSCeta<1.479 and BDT > 0.252039219555) or \
+                                     (fSCeta>=1.479                and BDT > -0.686263559006)))
+
+    def eleBDTCut_RunIIUL_HZZ_2017(ele) :
+        fSCeta = abs(ele.eta + ele.deltaEtaSC)
+        BDT = ele.mvaHZZIso
+        return (ele.pt<=10. and     ((fSCeta<0.8                   and BDT > 1.54440585808) or \
+                                     (fSCeta>=0.8 and fSCeta<1.479 and BDT > 1.50294621563) or \
+                                     (fSCeta>=1.479                and BDT > 1.77306202112))) \
+                or (ele.pt>10. and  ((fSCeta<0.8                   and BDT > 0.157262554087) or \
+                                     (fSCeta>=0.8 and fSCeta<1.479 and BDT > 0.0273932225081) or \
+                                     (fSCeta>=1.479                and BDT > -0.623050463489)))
+    
+    def eleBDTCut_RunIIUL_HZZ_2018(ele) :
+        fSCeta = abs(ele.eta + ele.deltaEtaSC)
+        BDT = ele.mvaHZZIso
+        return (ele.pt<=10. and     ((fSCeta<0.8                   and BDT > 1.49603193295) or \
+                                     (fSCeta>=0.8 and fSCeta<1.479 and BDT > 1.52414154008) or \
+                                     (fSCeta>=1.479                and BDT > 1.77694249574))) \
+                or (ele.pt>10. and  ((fSCeta<0.8                   and BDT > 0.199463934736) or \
+                                     (fSCeta>=0.8 and fSCeta<1.479 and BDT > 0.076063564084) or \
+                                     (fSCeta>=1.479                and BDT > -0.572118857519)))
 
     # Run3 nanoAODv12 samples have the 2018 UL tuning (ElectronMVAEstimatorRun2Summer18ULIdIsoValues)
     # The WP was derived before scale corrections, so the uncorrected pt should be used when available.
@@ -47,12 +78,17 @@ def getEleBDTCut(era, dataTag, nanoVersion, useUncorrPt=False) :
                                 (fSCeta>=0.8 and fSCeta<1.479 and BDT > 0.0759172100) or \
                                 (fSCeta>=1.479                and BDT > -0.5169136775)))
 
-    if era == 2017 or era == 2018 :
+    if era == 2017 or era == 2018 or era == 2016 :
         if "UL" in dataTag :
             if nanoVersion <10 :
                 return eleBDTCut_RunIIUL_v9
             else:
-                return eleBDTCut_RunIII_ULTraining_def
+                if era == 2016 :
+                    return eleBDTCut_RunIIUL_HZZ_2016
+                elif era == 2017 :
+                    return eleBDTCut_RunIIUL_HZZ_2017
+                elif era == 2018 :
+                    return eleBDTCut_RunIIUL_HZZ_2018
         else :
             if nanoVersion <10 :
                 return eleBDTCut_RunIIpreUL_v9

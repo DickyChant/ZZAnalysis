@@ -27,6 +27,12 @@ class triggerAndSkim(Module):
         self.out.branch("HLT_passZZ4lMuEle", "O") # pass MuEle triggers
         self.out.branch("HLT_passZZ4l", "O")      # pass trigger requirements for the given PD (including PD precedence vetos) 
 
+    def _hasTrigger(self, event, triggerName):
+        """Helper function to safely check if a trigger exists and is True"""
+        try:
+            return getattr(event, triggerName)
+        except RuntimeError:
+            return False
 
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
@@ -38,14 +44,23 @@ class triggerAndSkim(Module):
 
         ### Trigger requirements
         passTrigger = False
-        if self.era == 2017 :
-            passSingleEle = event.HLT_Ele35_WPTight_Gsf or event.HLT_Ele38_WPTight_Gsf or event.HLT_Ele40_WPTight_Gsf
-            passSingleMu = event.HLT_IsoMu27
-            passDiEle = event.HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_DoubleEle33_CaloIdL_MW
-            passDiMu = event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or event.HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8
-            passMuEle = event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL or event.HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ or event.HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ or event.HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ or event.HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ or event.HLT_Mu8_DiEle12_CaloIdL_TrackIdL or event.HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ
-            passTriEle = event.HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL
-            passTriMu = event.HLT_TripleMu_10_5_5_DZ or event.HLT_TripleMu_12_10_5
+        
+        if self.era == 2016:
+            passSingleEle = self._hasTrigger(event, "HLT_Ele25_eta2p1_WPTight_Gsf") or self._hasTrigger(event, "HLT_Ele27_WPTight_Gsf") or self._hasTrigger(event, "HLT_Ele27_eta2p1_WPLoose_Gsf") 
+            passSingleMu = self._hasTrigger(event, "HLT_IsoMu24") or self._hasTrigger(event, "HLT_IsoTkMu24") 
+            passDiEle = self._hasTrigger(event, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ") or self._hasTrigger(event, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ") or self._hasTrigger(event, "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL")
+            passDiMu = self._hasTrigger(event, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL") or self._hasTrigger(event, "HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL")
+            passMuEle = self._hasTrigger(event, "HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ") or self._hasTrigger(event, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ_Mass3p8")
+            passTriEle = self._hasTrigger(event, "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL")
+            passTriMu = self._hasTrigger(event, "HLT_TripleMu_12_10_5")
+        elif self.era == 2017 :
+            passSingleEle = self._hasTrigger(event, "HLT_Ele35_WPTight_Gsf") or self._hasTrigger(event, "HLT_Ele38_WPTight_Gsf") or self._hasTrigger(event, "HLT_Ele40_WPTight_Gsf")
+            passSingleMu = self._hasTrigger(event, "HLT_IsoMu27")
+            passDiEle = self._hasTrigger(event, "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_DoubleEle33_CaloIdL_MW")
+            passDiMu = self._hasTrigger(event, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8") or self._hasTrigger(event, "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8")
+            passMuEle = self._hasTrigger(event, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL") or self._hasTrigger(event, "HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ") or self._hasTrigger(event, "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ") or self._hasTrigger(event, "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ") or self._hasTrigger(event, "HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ") or self._hasTrigger(event, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL") or self._hasTrigger(event, "HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ")
+            passTriEle = self._hasTrigger(event, "HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL")
+            passTriMu = self._hasTrigger(event, "HLT_TripleMu_10_5_5_DZ") or self._hasTrigger(event, "HLT_TripleMu_12_10_5")
         elif self.era == 2018 :
             passSingleEle = event.HLT_Ele32_WPTight_Gsf
             passSingleMu = event.HLT_IsoMu24

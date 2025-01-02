@@ -394,7 +394,7 @@ public :
    vector<float>   *ExtraLepPhi;
    vector<short>   *ExtraLepLepId;
    Float_t         ZXFakeweight;
-   Float_t         KFactor_QCD_ggZZ_Nominal;
+   Int_t         KFactor_QCD_ggZZ_Nominal; // Dummy
    Float_t         KFactor_QCD_ggZZ_PDFScaleDn;
    Float_t         KFactor_QCD_ggZZ_PDFScaleUp;
    Float_t         KFactor_QCD_ggZZ_QCDScaleDn;
@@ -403,10 +403,10 @@ public :
    Float_t         KFactor_QCD_ggZZ_AsUp;
    Float_t         KFactor_QCD_ggZZ_PDFReplicaDn;
    Float_t         KFactor_QCD_ggZZ_PDFReplicaUp;
-   Float_t         KFactor_EW_qqZZ;
+   Int_t         KFactor_EW_qqZZ; // Dummy
    Float_t         KFactor_EW_qqZZ_unc;
    Float_t         KFactor_QCD_qqZZ_dPhi;
-   Float_t         KFactor_QCD_qqZZ_M;
+   Int_t         KFactor_QCD_qqZZ_M; // Dummy
    Float_t         KFactor_QCD_qqZZ_Pt;
    Short_t         genFinalState;
    Int_t           genProcessId;
@@ -414,10 +414,10 @@ public :
    Float_t         PUWeight;
    Float_t         dataMCWeight;
    Float_t         trigEffWeight;
-   Float_t         overallEventWeight;
-   Float_t         L1prefiringWeight;
+   Float_t         overallEventWeight; // Contains everything now!
+   Int_t         L1prefiringWeight; // Dummy
    Float_t         HqTMCweight;
-   Float_t         xsec;
+   Int_t         xsec; // Dummy
    Short_t         genExtInfo;
    Float_t         GenHMass;
    Float_t         GenHPt;
@@ -1001,6 +1001,9 @@ void Tree::Init(TTree *tree, TString input_file_name, bool notZLregion)
 
 
    nCleanedJetsPt30 = 0; // Added to have correct initial value...
+   overallEventWeight = 0.0; // Added to have correct initial value...
+   L1prefiringWeight = 0.0; // Added to have correct initial value...
+   xsec = 0.0; // Added to have correct initial value...
 
    // Set branch addresses and branch pointers
    if (!tree) return;
